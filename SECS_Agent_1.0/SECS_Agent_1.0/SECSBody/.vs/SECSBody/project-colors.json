@@ -1,0 +1,21 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "8d51c99d-bc7d-42e2-ac0c-8a316e9c3dc6": {
+      "ProjectGuid": "8d51c99d-bc7d-42e2-ac0c-8a316e9c3dc6",
+      "DisplayName": "SECSBody",
+      "ColorIndex": 0
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "其他檔案",
+      "ColorIndex": -1
+    },
+    "aac4bd07-9eb4-4b36-b545-ca745716f288": {
+      "ProjectGuid": "aac4bd07-9eb4-4b36-b545-ca745716f288",
+      "DisplayName": "SECSTool",
+      "ColorIndex": 1
+    }
+  },
+  "NextColorIndex": 2
+}
