@@ -1,0 +1,8 @@
+C:\Users\Home\Desktop\Workspace\tteesstt\SECS_Agent_1.0\SECS_Agent_1.0\SECSTool\bin\Release\SECSTool.dll
+C:\Users\Home\Desktop\Workspace\tteesstt\SECS_Agent_1.0\SECS_Agent_1.0\SECSTool\bin\Release\SECSTool.pdb
+C:\Users\Home\Desktop\Workspace\tteesstt\SECS_Agent_1.0\SECS_Agent_1.0\SECSTool\bin\Release\Newtonsoft.Json.dll
+C:\Users\Home\Desktop\Workspace\tteesstt\SECS_Agent_1.0\SECS_Agent_1.0\SECSTool\obj\Release\SECSTool.csproj.AssemblyReference.cache
+C:\Users\Home\Desktop\Workspace\tteesstt\SECS_Agent_1.0\SECS_Agent_1.0\SECSTool\obj\Release\SECSTool.csproj.CoreCompileInputs.cache
+C:\Users\Home\Desktop\Workspace\tteesstt\SECS_Agent_1.0\SECS_Agent_1.0\SECSTool\obj\Release\SECSTool.csproj.CopyComplete
+C:\Users\Home\Desktop\Workspace\tteesstt\SECS_Agent_1.0\SECS_Agent_1.0\SECSTool\obj\Release\SECSTool.dll
+C:\Users\Home\Desktop\Workspace\tteesstt\SECS_Agent_1.0\SECS_Agent_1.0\SECSTool\obj\Release\SECSTool.pdb
