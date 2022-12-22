@@ -49,41 +49,76 @@ namespace SECS_Agent_1._0
         {
             if (e.Msg_JObj == null) throw new Exception("Receieve null object!!");
             string SxFx = e.Msg_JObj["SxFx"].ToString();
-            JArray jArray = e.Msg_JObj["SecsMsg"] as JArray;
             int F_idx = SxFx.IndexOf('F');
             byte s = Convert.ToByte(SxFx.Substring(1, F_idx - 1));
             byte f = Convert.ToByte(SxFx.Substring(F_idx + 1));
-            if(jArray!=null)
+            
+            if (e.Msg_JObj["SecsMsg"] != null)
             {
-                if (jArray.Count == 0)
+                if(e.Msg_JObj["SecsMsg"].Type== JTokenType.Array)
                 {
-                    SecsMessage s_msg = new SecsMessage(s, f)
+                    JArray jArray = e.Msg_JObj["SecsMsg"] as JArray;
+                    if (jArray.Count == 0)
                     {
-                        SecsItem = Item.L()
-                    };
-                    _secsGem.SendAsync(s_msg);
+                        SecsMessage s_msg = new SecsMessage(s, f)
+                        {
+                            SecsItem = Item.L()
+                        };
+                        _secsGem.SendAsync(s_msg);
+                        s_msg.Dispose();
+                    }
+                    else
+                    {
+                        var secs_item_raw = IJ_Itpr.JArray2Item(jArray, Item.L().Items);
+                        SecsMessage s_msg = new SecsMessage(s, f)
+                        {
+                            SecsItem = secs_item_raw
+                        };
+                        _secsGem.SendAsync(s_msg);
+                        secs_item_raw.Dispose();
+                        s_msg.Dispose();
+                    }
+                    ClearJObject(jArray);
                 }
                 else
                 {
-                    var secs_item_raw = IJ_Itpr.JArray2Item(jArray, Item.L().Items);
-                    Item secs_item = secs_item_raw.Items.First();
+                    var secs_item_raw = IJ_Itpr.JProp2ItemValue((JObject)e.Msg_JObj["SecsMsg"]);
                     SecsMessage s_msg = new SecsMessage(s, f)
                     {
-                        SecsItem = secs_item
+                        SecsItem = secs_item_raw
                     };
                     _secsGem.SendAsync(s_msg);
+                    secs_item_raw.Dispose();
+                    s_msg.Dispose();
                 }
             }
             else
             {
                 SecsMessage s_msg = new SecsMessage(s, f);
                 _secsGem.SendAsync(s_msg);
+                s_msg.Dispose();
+            }
+        }
+
+        public void ClearJObject(JToken jToken)
+        {
+            switch (jToken.Type)
+            {
+                case JTokenType.Object:
+                    break;
+                case JTokenType.Array:
+                    foreach(var jobj in jToken)
+                    {
+                        ClearJObject(jobj);
+                    }
+                    ((JArray)jToken).Clear();
+                    break;
             }
         }
 
         private async void _buttonEnable_Click(object sender, EventArgs e)
         {
-            socketConnector.AsyncConnect(_numericUpDown_EQPPort.Value.ToString());
+            socketConnector.StartListen((int)_numericUpDown_EQPPort.Value);
             _secsGem?.Dispose();
 
             if (_connector is not null)
@@ -130,7 +165,7 @@ namespace SECS_Agent_1._0
 
         private async void _buttonDisable_Click(object sender, EventArgs e)
         {
-            socketConnector.Close();
+            socketConnector.DisConnect();
             if (!_cancellationTokenSource.IsCancellationRequested)
             {
                 _cancellationTokenSource.Cancel();
@@ -175,7 +210,8 @@ namespace SECS_Agent_1._0
                 }
                 string dataToSend = JsonConvert.SerializeObject(jObj);
                 byte[] dataBytes = Encoding.Default.GetBytes(dataToSend);
-                _form.socketConnector.Send(dataBytes);
+                _form.socketConnector.eqpSocketConnect.Send(dataBytes);
+                _form.ClearJObject(jObj);
                 _form.Invoke((MethodInvoker)delegate
                 {
                     _form.richTextBox1.SelectionColor = Color.Black;
@@ -235,7 +271,7 @@ namespace SECS_Agent_1._0
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            socketConnector.Close();
+            socketConnector.DisConnect();
         }
     }
 }

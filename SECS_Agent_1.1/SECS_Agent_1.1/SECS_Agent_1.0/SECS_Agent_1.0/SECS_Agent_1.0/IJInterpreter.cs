@@ -29,11 +29,8 @@ namespace SECS_Agent_1._0
                     switch (element.Type)
                     {
                         case JTokenType.Object:
-                            foreach (var prop in element)
-                            {
-                                tmpItem = Item.L(items.Append(JProp2ItemValue(((JProperty)(prop)).Value.ToString(), ((JProperty)(prop)).Name)));
+                                tmpItem = Item.L(items.Append(JProp2ItemValue((JObject)element)));
                                 items = tmpItem.Items;
-                            }
                             break;
                         case JTokenType.Array:
                             tmpItem = Item.L(items.Append(JArray2Item(element as JArray, Item.L().Items)));
@@ -234,10 +231,12 @@ namespace SECS_Agent_1._0
         /// <param name="data"></param>
         /// <returns>Item</returns>
         /// <exception cref="Exception"></exception>
-        private Item JProp2ItemValue(string dataType, string data)
+        public Item JProp2ItemValue(JObject jObj)
         {
             try
             {
+                string dataType = ((JProperty)(jObj.First)).Name;
+                string data = ((JProperty)(jObj.First)).Value.ToString();
                 switch ((SECSType)Enum.Parse(typeof(SECSType), dataType))
                 {
                     case SECSType.B:
