@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <RootNamespace>SECS_Agent_1._0</RootNamespace>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Secs4Net" Version="2.0.2" />
+    <PackageReference Include="Secs4Net.Json" Version="2.0.2" />
+    <PackageReference Include="Secs4Net.Sml" Version="2.0.2" />
+    <PackageReference Include="System.IO.Pipelines" Version="6.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="SECSTool">
+      <HintPath>..\..\SECSTool\bin\Debug\SECSTool.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
